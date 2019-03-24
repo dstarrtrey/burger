@@ -1,0 +1,92 @@
+<h1>Burgers To Devour</h1>
+
+<ul>
+  {{#each uneatenBurgers}}
+    <li>
+      <p>
+        {{this.burger_name}}
+
+        <button data-burgerid="{{this.id}}" data-burgername={{this.burger_name}} class="devburger">Devour it</button>
+      </p>
+    </li>
+  {{/each}}
+</ul>
+<ul>
+  {{#each eatenBurgers}}
+    <li>
+      <p>
+        {{this.burger_name}}
+      </p>
+    </li>
+  {{/each}}
+</ul>
+
+<h2>Add a Burger</h2>
+
+<form class="create-form" id="addburger">
+
+  <div class="form-group">
+    <label for="name">Burger Name:</label>
+    <input type="text" id="name" name="burger_name">
+  </div>
+
+  <button type="submit">Add Burger</button>
+</form>
+
+
+<script type="text/javascript">
+  $(".devburger").on("click", function(event) {
+    const id = $(this).data("burgerid");
+    const updatedBurger = {
+      burger_name: $(this).data("burgername"),
+      devoured: 1
+    };
+    // Send the PUT request with updated devoured state.
+    $.ajax("/burgers/" + id, {
+      type: "PUT",
+      data: updatedBurger
+    });
+    location.reload();
+  });
+
+  $("#addburger").on("submit", function(event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    var newBurger = {
+      burger_name: $("#name").val().trim(),
+      devoured: 0
+    };
+
+    // Send the POST request.
+    $.ajax("/burgers", {
+      type: "POST",
+      data: newBurger
+    })
+    $("#name").val("");
+    location.reload();
+  });
+
+  $("#updateburger").on("submit", function(event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    var id = $("[name=id]").val().trim();
+
+    var updatedBurger = {
+      burger: $("#updateburger [name=burger]").val().trim()
+    };
+
+    // Send the PUT request.
+    $.ajax("/burgers/" + id, {
+      type: "PUT",
+      data: updatedBurger
+    }).then(
+      function() {
+        console.log("updated id ", id);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+</script>

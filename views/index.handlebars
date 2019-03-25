@@ -1,25 +1,36 @@
+<style>
+  .container{
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  </style>
 <h1>Burgers To Devour</h1>
 
-<ul>
-  {{#each uneatenBurgers}}
-    <li>
-      <p>
-        {{this.burger_name}}
+<div class="container">
+  <ul class="uneaten">
+    {{#each uneatenBurgers}}
+      <li>
+        <p>
+          {{this.burger_name}}
 
-        <button data-burgerid="{{this.id}}" data-burgername={{this.burger_name}} class="devburger">Devour it</button>
-      </p>
-    </li>
-  {{/each}}
-</ul>
-<ul>
-  {{#each eatenBurgers}}
-    <li>
-      <p>
-        {{this.burger_name}}
-      </p>
-    </li>
-  {{/each}}
-</ul>
+          <button data-burgerid="{{this.id}}" data-burgername={{this.burger_name}} class="devburger">Devour it</button>
+        </p>
+      </li>
+    {{/each}}
+  </ul>
+  <ul class="eaten">
+    {{#each eatenBurgers}}
+      <li>
+        <p>
+          {{this.burger_name}}
+        </p>
+      </li>
+    {{/each}}
+  </ul>
+</div>
 
 <h2>Add a Burger</h2>
 
@@ -35,6 +46,7 @@
 
 
 <script type="text/javascript">
+  //Burger devourer
   $(".devburger").on("click", function(event) {
     const id = $(this).data("burgerid");
     const updatedBurger = {
@@ -48,7 +60,7 @@
     });
     location.reload();
   });
-
+  //New Burger submission
   $("#addburger").on("submit", function(event) {
     // Make sure to preventDefault on a submit event.
     event.preventDefault();
@@ -65,28 +77,5 @@
     })
     $("#name").val("");
     location.reload();
-  });
-
-  $("#updateburger").on("submit", function(event) {
-    // Make sure to preventDefault on a submit event.
-    event.preventDefault();
-
-    var id = $("[name=id]").val().trim();
-
-    var updatedBurger = {
-      burger: $("#updateburger [name=burger]").val().trim()
-    };
-
-    // Send the PUT request.
-    $.ajax("/burgers/" + id, {
-      type: "PUT",
-      data: updatedBurger
-    }).then(
-      function() {
-        console.log("updated id ", id);
-        // Reload the page to get the updated list
-        location.reload();
-      }
-    );
   });
 </script>

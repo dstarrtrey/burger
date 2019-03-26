@@ -1,32 +1,111 @@
 <style>
+  body{
+    background-color: #dbde69;
+  }
+  h1{
+    text-align: center;
+    font-family: "arial";
+    font-size: 50px;
+    color: #eb4141;
+  }
+  h2{
+    text-align: center;
+    font-family: "Helvetica";
+    font-size: 35px;
+    color: #00506a;
+  }
+  label{
+    font-family: "Helvetica";
+    font-size: 20px;
+    font-weight: bold;
+    color: #eb4141;
+  }
+  input{
+    padding: 20px;
+    margin-left: 10px;
+  }
+  form{
+    text-align: center;
+  }
+  .submit{
+    font-family: "Arial";
+    font-weight: bold;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+  }
   .container{
-    width: 100%;
-    margin: 0;
+    width: 85%;
+    min-height: 400px;
+    margin: auto;
     padding: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    background-color: #eb4141;
+    background-image: url("https://media1.tenor.com/images/9ff4c5d54c085c2b22c72b9ee560adeb/tenor.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+  .uneaten li{
+    background-color: #008CBA;
+    padding: 15px;
+    margin: 10px 0;
+    color: white;
+    font-family: "helvetica";
+    font-size: 20px;
+    list-style: none;
+  }
+  .uneaten button{
+    float: right;
+    background-color: #eb4141; /* Green */
+    border: 4px solid #00506a;
+    box-sizing: border-box;
+    color: white;
+    padding: 10px 32px;
+    position: relative;
+    bottom: 11px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .eaten li{
+    background-color: #ebebeb;
+    list-style: none;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 10px 15px;
+    text-align: center;
   }
   </style>
-<h1>Burgers To Devour</h1>
+<h1>Eat-Da-Burger</h1>
 
 <div class="container">
   <ul class="uneaten">
     {{#each uneatenBurgers}}
       <li>
-        <p>
+        <span>
           {{this.burger_name}}
 
-          <button data-burgerid="{{this.id}}" data-burgername={{this.burger_name}} class="devburger">Devour it</button>
-        </p>
+        </span>
+        <button data-burgerid="{{this.id}}" data-burgername="{{this.burger_name}}" class="devburger">Devour it</button>
       </li>
     {{/each}}
   </ul>
   <ul class="eaten">
     {{#each eatenBurgers}}
       <li>
-        <p>
-          {{this.burger_name}}
-        </p>
+        {{this.burger_name}}
       </li>
     {{/each}}
   </ul>
@@ -41,7 +120,7 @@
     <input type="text" id="name" name="burger_name">
   </div>
 
-  <button type="submit">Add Burger</button>
+  <button class="submit" type="submit">Add Burger</button>
 </form>
 
 

@@ -1,5 +1,5 @@
 # burger
-burger logger with MySQL, Node, Express, Handlebars and a homemade ORM 
+Burger logger with MySQL, Node, Express, Handlebars and a homemade ORM 
 
 Everyone loves a good burger! Share yours with the world using **Eat-Da-Burger** burger logger!  
 
